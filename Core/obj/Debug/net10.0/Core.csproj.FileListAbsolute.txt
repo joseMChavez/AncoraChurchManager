@@ -1,0 +1,13 @@
+/Users/mcbook/RiderProjects/AncoraChurchManager/Core/bin/Debug/net10.0/Core.deps.json
+/Users/mcbook/RiderProjects/AncoraChurchManager/Core/bin/Debug/net10.0/Core.dll
+/Users/mcbook/RiderProjects/AncoraChurchManager/Core/bin/Debug/net10.0/Core.pdb
+/Users/mcbook/RiderProjects/AncoraChurchManager/Core/obj/Debug/net10.0/Core.csproj.AssemblyReference.cache
+/Users/mcbook/RiderProjects/AncoraChurchManager/Core/obj/Debug/net10.0/Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mcbook/RiderProjects/AncoraChurchManager/Core/obj/Debug/net10.0/Core.AssemblyInfoInputs.cache
+/Users/mcbook/RiderProjects/AncoraChurchManager/Core/obj/Debug/net10.0/Core.AssemblyInfo.cs
+/Users/mcbook/RiderProjects/AncoraChurchManager/Core/obj/Debug/net10.0/Core.csproj.CoreCompileInputs.cache
+/Users/mcbook/RiderProjects/AncoraChurchManager/Core/obj/Debug/net10.0/Core.sourcelink.json
+/Users/mcbook/RiderProjects/AncoraChurchManager/Core/obj/Debug/net10.0/Core.dll
+/Users/mcbook/RiderProjects/AncoraChurchManager/Core/obj/Debug/net10.0/refint/Core.dll
+/Users/mcbook/RiderProjects/AncoraChurchManager/Core/obj/Debug/net10.0/Core.pdb
+/Users/mcbook/RiderProjects/AncoraChurchManager/Core/obj/Debug/net10.0/ref/Core.dll

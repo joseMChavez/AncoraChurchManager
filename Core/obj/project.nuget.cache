@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "Q1xzL7lU8jM=",
+  "success": true,
+  "projectFilePath": "/Users/mcbook/RiderProjects/AncoraChurchManager/Core/Core.csproj",
+  "expectedPackageFiles": [
+    "/Users/mcbook/.nuget/packages/sqlite-net-pcl/1.9.172/sqlite-net-pcl.1.9.172.nupkg.sha512",
+    "/Users/mcbook/.nuget/packages/sqlitepclraw.bundle_green/2.1.2/sqlitepclraw.bundle_green.2.1.2.nupkg.sha512",
+    "/Users/mcbook/.nuget/packages/sqlitepclraw.core/2.1.2/sqlitepclraw.core.2.1.2.nupkg.sha512",
+    "/Users/mcbook/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.2/sqlitepclraw.lib.e_sqlite3.2.1.2.nupkg.sha512",
+    "/Users/mcbook/.nuget/packages/sqlitepclraw.provider.e_sqlite3/2.1.2/sqlitepclraw.provider.e_sqlite3.2.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}
