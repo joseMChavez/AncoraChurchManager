@@ -9,14 +9,15 @@ public interface IChurchRepository
     Task<int> CreateChurchAsync(Church church);
     Task<int> UpdateChurchAsync(Church church);
     Task<int> DeleteChurchAsync(string id);
-   
+
     Task<List<Member>> GetMembersByStatusAsync(string churchId, string status);
+
     Task<int> DeleteMembersByChurchAsync(string churchId);
     Task<List<Church>> GetUnsynchronizedChurchesAsync();
     Task<int> MarkChurchSynchronizedAsync(string id);
+}
 
-
-    public interface IMemberRepository
+public interface IMemberRepository
     {
         Task<Member> GetMemberByIdAsync(string id);
         Task<int> CreateMemberAsync(Member member);
@@ -179,7 +180,7 @@ public interface IChurchRepository
                 "UPDATE Member SET IsSynchronized = 1 WHERE Id = ?", id);
         }
 
-
+        
 
         private async Task EnsureConnectionAsync()
         {
@@ -203,4 +204,3 @@ public interface IChurchRepository
             }
         }
     }
-}

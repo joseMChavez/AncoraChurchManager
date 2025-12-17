@@ -6,10 +6,10 @@ namespace Core.Services;
     /// <summary>
     /// Business logic related to churches
     /// </summary>
-    public class ChurchService(IChurchRepository.IMemberRepository memberRepository, IChurchRepository churchRepository)
+    public class ChurchService(IMemberRepository memberRepositoryRepository, IChurchRepository churchRepositoryRepository)
     {
-        private readonly IChurchRepository churches=churchRepository;
-        private readonly  IChurchRepository.IMemberRepository  members=memberRepository;  
+        private readonly IChurchRepository _churchRepository=churchRepositoryRepository;
+        private readonly  IMemberRepository  _memberRepository=memberRepositoryRepository;  
 
         
         /// <summary>
@@ -17,12 +17,12 @@ namespace Core.Services;
         /// </summary>
         public async Task<List<Church>> GetAllAsync()
         {
-            var list = await this.churches.GetAllChurchesAsync();
+            var list = await this._churchRepository.GetAllChurchesAsync();
 
             // Enrich with member data
             foreach (var church in list)
             {
-                church.TotalMembers = await members.CountMembersByChurchAsync(church.Id);
+                church.TotalMembers = await _memberRepository.CountMembersByChurchAsync(church.Id);
             }
 
             return list;
@@ -33,13 +33,12 @@ namespace Core.Services;
         /// </summary>
         public async Task<(Church church, List<Member> members)> GetDetailsAsync(string id)
         {
-            var church =  churches.GetChurchByIdAsync(id);
-            var list =  this.members.GetMembersByChurchAsync(id);
+            var church =  _churchRepository.GetChurchByIdAsync(id);
+            var list =  this._memberRepository.GetMembersByChurchAsync(id);
             await Task.WhenAll(church, list);
-            if (church.Result != null)
-                church.Result.TotalMembers = list.Result.Count;
+            church.Result.TotalMembers = list.Result.Count;
 
-            return (church.Result, list.Result ?? new List<Member>());
+            return (church.Result, list.Result ??[]);
         }
 
         /// <summary>
@@ -56,7 +55,7 @@ namespace Core.Services;
 
             try
             {
-                await churches.CreateChurchAsync(church);
+                await _churchRepository.CreateChurchAsync(church);
                 return OperationResult<Church>.Success(church);
             }
             catch (Exception ex)
@@ -73,13 +72,13 @@ namespace Core.Services;
             if (string.IsNullOrWhiteSpace(church.Id))
                 return OperationResult<Church>.Error("Invalid church ID");
 
-            var existing = await churches.GetChurchByIdAsync(church.Id);
+            var existing = await _churchRepository.GetChurchByIdAsync(church.Id);
             if (existing == null)
                 return OperationResult<Church>.Error("Church does not exist");
 
             try
             {
-                await churches.UpdateChurchAsync(church);
+                await _churchRepository.UpdateChurchAsync(church);
                 return OperationResult<Church>.Success(church);
             }
             catch (Exception ex)
@@ -93,13 +92,13 @@ namespace Core.Services;
         /// </summary>
         public async Task<OperationResult<bool>> DeleteAsync(string id)
         {
-            var church = await churches.GetChurchByIdAsync(id);
+            var church = await _churchRepository.GetChurchByIdAsync(id);
             if (church == null)
                 return OperationResult<bool>.Error("Church does not exist");
 
             try
             {
-                await churches.DeleteChurchAsync(id);
+                await _churchRepository.DeleteChurchAsync(id);
                 return OperationResult<bool>.Success(true);
             }
             catch (Exception ex)
@@ -113,8 +112,8 @@ namespace Core.Services;
         /// </summary>
         public async Task<ChurchStatistics> GetStatisticsAsync(string churchId)
         {
-            var totalMembers = await members.CountMembersByChurchAsync(churchId);
-            var activeMembers = await members.CountActiveMembersByChurchAsync(churchId);
+            var totalMembers = await _memberRepository.CountMembersByChurchAsync(churchId);
+            var activeMembers = await _memberRepository.CountActiveMembersByChurchAsync(churchId);
 
             return new ChurchStatistics
             {
@@ -129,9 +128,9 @@ namespace Core.Services;
     /// <summary>
     /// Business logic related to members
     /// </summary>
-    public class MemberService(IChurchRepository.IMemberRepository memberRepository,IChurchRepository churchRepository)
+    public class MemberService( IMemberRepository memberRepository,IChurchRepository churchRepository)
     {
-        private readonly  IChurchRepository.IMemberRepository _memberRepository=memberRepository;
+        private readonly IMemberRepository _memberRepository = memberRepository;
         private readonly IChurchRepository _churchRepository=churchRepository;  
         /// <summary>
         /// Gets all members of a church
@@ -189,7 +188,7 @@ namespace Core.Services;
                 return OperationResult<Member>.Error("Invalid member ID");
 
             var existing = await _memberRepository.GetMemberByIdAsync(member.Id);
-            if (existing == null)
+            if (existing is null)
                 return OperationResult<Member>.Error("Member does not exist");
 
             try
@@ -209,8 +208,6 @@ namespace Core.Services;
         public async Task<OperationResult<bool>> DeleteAsync(string id)
         {
             var member = await _memberRepository.GetMemberByIdAsync(id);
-            if (member == null)
-                return OperationResult<bool>.Error("Member does not exist");
 
             try
             {
@@ -243,7 +240,7 @@ namespace Core.Services;
     {
         public bool IsSuccessful { get; set; }
         public T Data { get; set; }
-        public string Message { get; set; }
+        public string? Message { get; set; }
 
         public static OperationResult<T> Success(T data, string message = "Operation successful")
         {
@@ -260,13 +257,13 @@ namespace Core.Services;
             return new OperationResult<T>
             {
                 IsSuccessful = false,
-                Data = default,
+                Data = default!,
                 Message = message
             };
         }
     }
 
-    // Models/ChurchStatistics.cs
+  
     public class ChurchStatistics
     {
         public int TotalMembers { get; set; }

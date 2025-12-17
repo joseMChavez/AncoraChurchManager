@@ -28,5 +28,7 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+	<key>NSDocumentUsageDescription</key>
+	<string>We need access to store your church data locally</string>
 </dict>
 </plist>

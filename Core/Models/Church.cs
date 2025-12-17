@@ -27,17 +27,17 @@ public class Church:BaseEntity
     /// <summary>
     /// Contact email
     /// </summary>
-    public string Email { get; set; }
+    public string? Email { get; set; }
 
     /// <summary>
     /// Church logo or photo URL (local path or base64)
     /// </summary>
-    public string PhotoUrl { get; set; }
+    public string? PhotoUrl { get; set; }
 
     /// <summary>
     /// Name of the lead pastor
     /// </summary>
-    public string PastorName { get; set; }
+    public string? PastorName { get; set; }
 
     /// <summary>
     /// Founding date
